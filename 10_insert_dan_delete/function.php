@@ -37,4 +37,28 @@ function delete($id) {
 	return mysqli_affected_rows($conn);
 }
 
+function update($data) {
+	global $conn;
+
+	$id = $data["id"];
+	$nama = htmlspecialchars($data["nama"]);
+	$gelar = htmlspecialchars($data["gelar"]);
+	$vision = htmlspecialchars($data["vision"]);
+	$region = htmlspecialchars($data["region"]);
+	$image = htmlspecialchars($data["image"]);
+
+	$query = "UPDATE harbingers SET 
+				id = $id,
+				nama = '$nama',
+				gelar = '$gelar',
+				vision = '$vision',
+				region = '$region',
+				image = '$image'
+			WHERE id = $id";
+
+	mysqli_query($conn, $query);
+
+	return mysqli_affected_rows($conn);
+}
+
 ?>
