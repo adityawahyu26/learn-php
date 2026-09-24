@@ -1,6 +1,6 @@
 <?php 
 
-if (isset($_GET["nama"]) && isset($_GET["alamat"])) {
+if (isset($_GET["submit"])) {
 	$nama = htmlspecialchars($_GET["nama"]);
 	$alamat = htmlspecialchars($_GET["alamat"]);
 } else {

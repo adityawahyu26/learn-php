@@ -49,7 +49,7 @@
 				<h3>LOGIN</h3>
 				<input type="text" name="username" placeholder="masukkan username" required><br>
 				<input type="password" name="password" placeholder="masukkan password" required><br>
-				<button type="submit">Login</button>
+				<button type="submit" name="submit">Login</button>
 			</form>
 		</div>
 	</div>

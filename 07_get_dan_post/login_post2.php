@@ -1,6 +1,6 @@
 <?php 
 
-if (isset($_POST['username']) && isset($_POST['password'])) {
+if (isset($_POST['submit'])) {
 	$nama = htmlspecialchars($_POST['username']);
 } else {
 	header("Location: login_post1.php");
