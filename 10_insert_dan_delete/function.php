@@ -19,7 +19,10 @@ function insert($data) {
 	$gelar = htmlspecialchars($data["gelar"]);
 	$vision = htmlspecialchars($data["vision"]);
 	$region = htmlspecialchars($data["region"]);
-	$image = htmlspecialchars($data["image"]);
+	$image = upload();
+	if (!$image) {
+		return false;
+	}
 
 	$query = "INSERT INTO harbingers 
 	VALUES ('','$nama', '$gelar', '$vision', '$region', '$image')";
@@ -27,6 +30,45 @@ function insert($data) {
 	mysqli_query($conn, $query);
 
 	return mysqli_affected_rows($conn);
+}
+
+function upload() {
+	$namaFile = $_POST['image']['name'];
+	$ukuranFile = $_POST['image']['size'];
+	$error = $_POST['image']['error'];
+	$tmpName = $_POST['image']['error'];
+
+	if ($error === 4) {
+		echo 	"<script>
+					alert('Tolong masukkan gambar!');
+				</script>";
+		return false;
+	}
+
+	$ekstensiGambarValid = ['jpg', 'jpeg', 'png'];
+	$ekstensiGambar = explode(".", $namaFile);
+	$ekstensiGambar = strtolower(end($ekstensiGambar));
+	if (!in_array($ekstensiGambar, $ekstensiGambarValid)) {
+		echo 	"<script>
+					alert('Format gambar yang anda masukkan salah!');
+				</script>";
+		return false;
+	}
+
+	if ($ukuranFile > 1000000) {
+		echo 	"<script>
+					alert('Ukuran gambar yang anda masukkan terlalu besar!');
+				</script>";
+		return false;
+	}
+
+	$newFileName = uniqid();
+	$newFileName .= ".";
+	$newFileName .= $ekstensiGambar;
+
+	move_uploaded_file($tmpName, "image/".$newFileName);
+
+	return $newFileName;
 }
 
 function delete($id) {
