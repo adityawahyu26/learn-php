@@ -55,7 +55,7 @@ if (isset($_POST['search'])) {
 		<?php foreach ($harbingers as $hr) : ?>
 			<tr>
 				<td><?= $i; ?></td>
-				<td><a href="">update</a> | 
+				<td><a href="update.php?id=<?= $hr['id'] ?>">update</a> | 
 					<a href="delete.php?id=<?= $hr['id'] ?>" onClick="return confirm('yakin ingin menghapus data?');">delete</a></td>
 				<td><img src="image/<?= $hr["image"]; ?>" alt="harbingers"></td>
 				<td><?= $hr["nama"]; ?></td>
