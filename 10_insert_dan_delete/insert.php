@@ -47,12 +47,12 @@
 
 	?>
 	<h1>Insert New Data</h1>
-	<form action="" method="post">
+	<form action="" method="post" enctype="multipart/form-data">
 		<input type="text" name="nama" placeholder="masukkan nama" required><br>
 		<input type="text" name="gelar" placeholder="masukkan gelar" required><br>
 		<input type="text" name="vision" placeholder="masukkan jenis vision" required><br>
 		<input type="text" name="region" placeholder="masukkan region penempatan" required><br>
-		<input type="text" name="image" placeholder="masukkan image anggota" required><br>
+		<input type="file" name="image" placeholder="masukkan image anggota" required><br>
 		<button type="submit" name="submit" class="submit">Insert</button>
 	</form>
 	<button id="back"><a href="index.php">Kembali</a></button>
