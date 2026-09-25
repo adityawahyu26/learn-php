@@ -37,6 +37,17 @@ function delete($id) {
 	return mysqli_affected_rows($conn);
 }
 
+function search($keyword) {
+	global $conn;
+
+	$query = "SELECT * FROM harbingers WHERE 
+				nama LIKE '%$keyword%' OR
+				gelar LIKE '%$keyword%' OR
+				vision LIKE '%$keyword%' OR
+				region LIKE '%$keyword%'";
+
+	return select($query);
+
 function update($data) {
 	global $conn;
 

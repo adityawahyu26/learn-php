@@ -4,6 +4,10 @@ require "function.php";
 
 $harbingers = select("SELECT * FROM harbingers");
 
+if (isset($_POST['search'])) {
+	$harbingers = search($_POST['keyword']);
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,6 +16,10 @@ $harbingers = select("SELECT * FROM harbingers");
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
 	<style>
+		table {
+			margin-top: 10px;
+		}
+
 		img {
 			width: 100px;
 		}
@@ -28,7 +36,11 @@ $harbingers = select("SELECT * FROM harbingers");
 	</style>
 </head>
 <body>
-	<button id="insert"><a href="insert.php">Insert New Data</a></button>
+	<button id="insert"><a href="insert.php">Insert New Data</a></button><br>
+	<form action="" method="post">
+		<input type="text" name="keyword" placeholder="masukkan pencarian disini" autofocus autocomplete="none">
+		<button type="submit" name="search">Search</button>
+	</form>
 	<table border="1" cellpadding="10" cellspacing="0">
 		<tr>
 			<th>No.</th>
