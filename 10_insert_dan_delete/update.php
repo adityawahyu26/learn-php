@@ -11,6 +11,10 @@
 			padding: 5px;
 		}
 
+		img {
+			width: 100px;
+		}
+
 		.submit {
 			margin: 10px;
 			padding: 5px;
@@ -52,13 +56,15 @@
 
 	?>
 	<h1>Update Data</h1>
-	<form action="" method="post">
+	<form action="" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="oldImage" value="<?= $hr['image']; ?>">
 		<input type="hidden" name="id" value="<?= $hr['id']; ?>">
 		<input type="text" name="nama" required value="<?= $hr['nama']; ?>"><br>
 		<input type="text" name="gelar" required value="<?= $hr['gelar']; ?>"><br>
 		<input type="text" name="vision" required value="<?= $hr['vision']; ?>"><br>
 		<input type="text" name="region" required value="<?= $hr['region']; ?>"><br>
-		<input type="text" name="image" required value="<?= $hr['image']; ?>"><br>
+		<img src="image/<?= $hr['image']; ?>" alt="harbingers"><br>
+		<input type="file" name="image" required><br>
 		<button type="submit" name="submit" class="submit">Update</button>
 	</form>
 	<button id="back"><a href="index.php">Kembali</a></button>

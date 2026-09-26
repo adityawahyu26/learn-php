@@ -89,6 +89,7 @@ function search($keyword) {
 				region LIKE '%$keyword%'";
 
 	return select($query);
+};
 
 function update($data) {
 	global $conn;
@@ -98,7 +99,13 @@ function update($data) {
 	$gelar = htmlspecialchars($data["gelar"]);
 	$vision = htmlspecialchars($data["vision"]);
 	$region = htmlspecialchars($data["region"]);
-	$image = htmlspecialchars($data["image"]);
+	$oldImage = htmlspecialchars($data["image"]);
+
+	if ($_FILES['image']['error'] === 4) {
+		$image = $oldImage;
+	} else {
+		$image = upload();
+	};
 
 	$query = "UPDATE harbingers SET 
 				id = $id,
