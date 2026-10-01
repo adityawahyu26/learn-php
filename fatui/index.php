@@ -2,6 +2,13 @@
 
 require "function.php";
 
+session_start();
+
+if (!isset($_SESSION['login'])) {
+	header("Location: login.php");
+	exit;
+}
+
 $harbingers = select("SELECT * FROM harbingers");
 
 if (isset($_POST['search'])) {
