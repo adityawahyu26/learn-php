@@ -4,6 +4,10 @@ require 'function.php';
 
 $error = "";
 
+if (isset($_SESSION['login'])) {
+	header("Location: index.php");
+}
+
 if (isset($_POST['submit'])) {
 
 	$username = strtolower(trim($_POST['username']));
@@ -24,6 +28,11 @@ if (isset($_POST['submit'])) {
 			$_SESSION['login'] 		= true;
 			$_SESSION['id'] 		= $user['id'];
 			$_SESSION['username'] 	= $user['username'];
+
+			if (isset($_POST['remember'])) {
+				setcookie('remember_id', $user['id'], time() + 60);
+				setcookie('remember_name', hash('sha256', $user['username']), time() + 60);
+			}
 
 			header("Location: index.php");
 			exit; 
@@ -125,6 +134,7 @@ if (isset($_POST['submit'])) {
 				<input type="text" name="username" id="username" required autocomplete="off" autofocus>
 				<label for="password">Password :</label>
 				<input type="password" name="password" id="password" required autocomplete="off">
+				<label><input type="checkbox" name="remember"> Remember Me</label>
 				<button type="submit" name="submit">Sign In</button>
 				<a href="regist.php">Create Account</a>
 			</form>
