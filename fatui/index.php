@@ -1,13 +1,13 @@
 <?php 
 
-require "function.php";
-
+// cek apa user sudah login
 session_start();
-
 if (!isset($_SESSION['login'])) {
 	header("Location: login.php");
 	exit;
 }
+
+require "function.php";
 
 $harbingers = select("SELECT * FROM harbingers");
 
