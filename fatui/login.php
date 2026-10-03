@@ -21,12 +21,13 @@ if (isset($_POST['submit'])) {
 			// cegah session fixation
 			session_regenerate_id(true);
 
-			$_SESSION['login']    = true;
-			$_SESSION['id']       = $user['id'];
-			$_SESSION['username'] = $user['username'];
+			$_SESSION['login'] 		= true;
+			$_SESSION['id'] 		= $user['id'];
+			$_SESSION['username'] 	= $user['username'];
 
 			header("Location: index.php");
-			exit;
+			exit; 
+
 		}
 	}
 
