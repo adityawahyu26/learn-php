@@ -27,7 +27,13 @@ if (!isset($_SESSION['login'])) {
 	exit;
 }
 
-$harbingers = select("SELECT * FROM harbingers");
+$jumlahDataPerhalaman = 3;
+$jumlahData = count(select("SELECT id FROM harbingers"));
+$jumlahHalaman = ceil($jumlahData / $jumlahDataPerhalaman);
+$halamanAktif = (isset($_GET['halaman']))? $_GET['halaman']: 1;
+$dataAwal = ($jumlahDataPerhalaman * $halamanAktif) - $jumlahDataPerhalaman;
+
+$harbingers = select("SELECT * FROM harbingers LIMIT $dataAwal, $jumlahDataPerhalaman");
 
 if (isset($_POST['search'])) {
 	$harbingers = search($_POST['keyword']);
@@ -58,15 +64,32 @@ if (isset($_POST['search'])) {
 			text-decoration: none;
 			color: black;
 		}
+
+		.arrow:hover {
+			color: orange;
+		}
 	</style>
 </head>
 <body>
 	<button id="insert"><a href="insert.php">Insert New Data</a></button><br>
-	<form action="" method="post">
-		<input type="text" name="keyword" placeholder="masukkan pencarian disini" autofocus autocomplete="none">
+	<form action="" method="post" style="margin-bottom: 10px">
+		<input type="text" name="keyword" placeholder="masukkan pencarian disini" autofocus autocomplete="off">
 		<button type="submit" name="search">Search</button>
 	</form>
-	<table border="1" cellpadding="10" cellspacing="0">
+	<?php if ($halamanAktif > 1) : ?>
+		<a href="?halaman=<?= $halamanAktif - 1; ?>" class="arrow">&laquo;</a>
+	<?php endif; ?>
+	<?php for ($i = 1; $i <= $jumlahHalaman; $i++) :?>
+		<?php if ($i == $halamanAktif) : ?>
+			<a href="?halaman=<?= $i; ?>" style="margin: 5px; font-weight: bold; color: orange;"><?= $i; ?></a>
+		<?php else : ?>
+			<a href="?halaman=<?= $i; ?>" style="margin: 5px;"><?= $i; ?></a>
+		<?php endif; ?>
+	<?php endfor; ?>
+	<?php if ($halamanAktif < $jumlahHalaman) : ?>
+		<a href="?halaman=<?= $halamanAktif + 1; ?>" class="arrow">&raquo;</a>
+	<?php endif; ?>
+	<table border="1" cellpadding="10" cellspacing="0" style="margin-bottom: 10px">
 		<tr>
 			<th>No.</th>
 			<th>Aksi</th>
@@ -83,10 +106,10 @@ if (isset($_POST['search'])) {
 				<td><a href="update.php?id=<?= $hr['id'] ?>">update</a> | 
 					<a href="delete.php?id=<?= $hr['id'] ?>" onClick="return confirm('yakin ingin menghapus data?');">delete</a></td>
 				<td><img src="image/<?= $hr["image"]; ?>" alt="harbingers"></td>
-				<td><?= $hr["nama"]; ?></td>
-				<td><?= $hr["gelar"]; ?></td>
-				<td><?= $hr["vision"]; ?></td>
-				<td><?= $hr["region"]; ?></td>
+				<td><?= htmlspecialchars($hr["nama"]); ?></td>
+				<td><?= htmlspecialchars($hr["gelar"]); ?></td>
+				<td><?= htmlspecialchars($hr["vision"]); ?></td>
+				<td><?= htmlspecialchars($hr["region"]); ?></td>
 			</tr>
 			<?php $i++; ?>
 		<?php endforeach; ?>
