@@ -1,6 +1,6 @@
 <?php
 
-$conn = mysqli_connect("localhost", "root", "", "fatui");
+$conn = mysqli_connect("sql103.infinityfree.com", "if0_43099042", "Zwvfelxc8grJ", "if0_43099042_fatui");
 
 if (!$conn) {
 	die("Koneksi database gagal: " . mysqli_connect_error());
